@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Awesome Test Portal</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- PROFILE SPECIFIC STYLES --- */
+        .profile-container { max-width: 1000px; margin: 30px auto; padding: 20px; display: grid; grid-template-columns: 3fr 7fr; gap: 30px; }
+        .profile-card { background: var(--white); padding: 25px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); text-align: center; }
+        .profile-pic { width: 120px; height: 120px; background: #ecf0f1; border-radius: 50%; margin: 0 auto 15px; object-fit: cover; border: 4px solid var(--primary-light); }
+        .profile-pic:not([src]) { content: url('https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'); opacity: 0.6; }
+        .profile-name { font-size: 1.6rem; color: var(--dark); margin-bottom: 5px; }
+        .profile-email { color: #7f8c8d; font-size: 0.9rem; margin-bottom: 20px; }
+        .profile-stat { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid #f0f0f0; }
+        .stat-label { font-size: 0.9rem; color: #555; }
+        .stat-value { font-weight: 600; color: var(--primary); }
+        
+        .btn-edit { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1rem; cursor: pointer; margin-top: 15px; transition: 0.3s; font-weight: 600; }
+        .btn-edit:hover { background: #2980b9; }
+
+        .profile-field-group { text-align: left; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .profile-field-group label { font-size: 0.9rem; color: var(--dark); display: block; margin-bottom: 5px; font-weight: 600; }
+        .profile-field-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; font-size: 1rem; }
+        
+        .dashboard-content { display: flex; flex-direction: column; gap: 30px; }
+        .history-card { background: var(--white); padding: 25px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        .history-card h3 { border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 20px; color: var(--primary); font-weight: 600; }
+        .score-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px dashed #f0f0f0; }
+        .score-val.high { color: #2ecc71; font-weight:bold; font-size:1.1rem;}
+        .score-val.low { color: #e74c3c; font-weight:bold; font-size:1.1rem;}
+        
+        .btn-review { background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 5px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; text-decoration: none; display: inline-block;}
+        .btn-review:hover { background: #2471a3; }
+
+        @media (max-width: 900px) { .profile-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Loading...
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <img src="" alt="Profile Picture" class="profile-pic" id="user-photo">
+            <div id="display-mode">
+                <h2 class="profile-name" id="user-name-display">Loading...</h2>
+                <p class="profile-email" id="user-email-display">Loading...</p>
+            </div>
+
+            <div id="edit-mode" class="profile-field-group" style="display:none;">
+                <label>Full Name:</label> <input type="text" id="edit-name">
+                <label>Date of Birth:</label> <input type="date" id="edit-dob">
+            </div>
+
+            <button class="btn-edit" id="toggle-edit-btn" onclick="window.toggleEditMode()">
+                <i class="fas fa-edit"></i> Edit Profile Details
+            </button>
+            <button class="btn-edit" id="save-profile-btn" onclick="window.saveProfile()" style="display:none; background:#2ecc71;">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+            <p id="profile-status" style="margin-top:10px; font-size:0.9rem;"></p>
+            
+            <div style="margin-top: 30px;">
+                <div class="profile-stat"><span class="stat-label">Date of Birth</span><span class="stat-value" id="user-dob">N/A</span></div>
+                <div class="profile-stat"><span class="stat-label">Member Since</span><span class="stat-value" id="member-since">N/A</span></div>
+                <div class="profile-stat"><span class="stat-label">Tests Attempted</span><span class="stat-value" id="total-tests">0</span></div>
+                <div class="profile-stat"><span class="stat-label">Highest Score</span><span class="stat-value" id="highest-score">N/A</span></div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="history-card">
+                <h3><i class="fas fa-chart-line"></i> Recent Test History</h3>
+                <div id="history-container" style="text-align:center; padding: 20px; color:#666;">
+                    Fetching Scores...
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, getDocs, limit, where, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+        authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+        projectId: "ujjwal-test-69e8d",
+        storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+        messagingSenderId: "1079902323676",
+        appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    window.handleLogout = async () => { await signOut(auth); };
+
+    function formatDate(isoString) {
+        if (!isoString) return 'N/A';
+        return new Date(isoString).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    // --- Profile Edit Logic ---
+    let isEditMode = false;
+    window.toggleEditMode = function(currentDetails) {
+        isEditMode = !isEditMode;
+        if (isEditMode) {
+            document.getElementById('display-mode').style.display = 'none';
+            document.getElementById('edit-mode').style.display = 'block';
+            document.getElementById('toggle-edit-btn').style.display = 'none';
+            document.getElementById('save-profile-btn').style.display = 'inline-block';
+            document.getElementById('edit-name').value = document.getElementById('user-name-display').innerText;
+            if(currentDetails) document.getElementById('edit-dob').value = currentDetails.dob || '';
+        } else {
+            document.getElementById('display-mode').style.display = 'block';
+            document.getElementById('edit-mode').style.display = 'none';
+            document.getElementById('toggle-edit-btn').style.display = 'inline-block';
+            document.getElementById('save-profile-btn').style.display = 'none';
+        }
+    }
+
+    window.saveProfile = async function() {
+        const user = auth.currentUser;
+        const newName = document.getElementById('edit-name').value.trim();
+        const newDob = document.getElementById('edit-dob').value;
+        const statusMsg = document.getElementById('profile-status');
+        
+        if (!user || newName === "") return;
+        try {
+            statusMsg.innerText = 'Saving profile...';
+            if (newName !== user.displayName) await updateProfile(user, { displayName: newName });
+            await setDoc(doc(db, "user_details", user.uid), { dob: newDob }, { merge: true });
+            statusMsg.innerText = 'Saved! Refreshing...';
+            setTimeout(() => location.reload(), 1000);
+        } catch (error) { statusMsg.innerText = `Error: ${error.message}`; }
+    }
+    
+    // --- Load Profile & History ---
+    window.userTestHistory = []; 
+
+    async function loadProfileData(user) {
+        const profileSnap = await getDoc(doc(db, "user_details", user.uid));
+        const userDetails = profileSnap.exists() ? profileSnap.data() : {};
+
+        document.getElementById('user-name-display').innerText = user.displayName || 'Awesome User';
+        document.getElementById('user-email-display').innerText = user.email;
+        document.getElementById('profile-link').innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+        document.getElementById('user-photo').src = user.photoURL || '';
+        document.getElementById('user-dob').innerText = userDetails.dob || 'N/A';
+        document.getElementById('member-since').innerText = formatDate(user.metadata.creationTime);
+        
+        const historyContainer = document.getElementById('history-container');
+
+        try {
+            const q = query(collection(db, "test_results"), where("userId", "==", user.uid), orderBy("timestamp", "desc"), limit(20));
+            const querySnapshot = await getDocs(q);
+            
+            if (querySnapshot.empty) {
+                historyContainer.innerHTML = '<p>No test scores found yet!</p>';
+                return userDetails;
+            }
+            
+            let html = '';
+            let highestScore = 0, highestMax = 0;
+            window.userTestHistory = []; 
+            
+            let loopIndex = 0; // 🚀 YAHAN NAYA VARIABLE BANAYA HAI
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                window.userTestHistory.push(data); 
+                
+                if (data.score > highestScore) { highestScore = data.score; highestMax = data.maxMarks; }
+                const scoreColor = data.score >= (data.maxMarks * 0.6) ? 'high' : 'low'; 
+                
+                html += `
+                <div class="score-item">
+                    <div>
+                        <h4 style="color:var(--dark); margin-bottom:5px;">${data.testName}</h4>
+                        <span style="font-size:0.85rem; color:#777;">${formatDate(data.timestamp)} • Correct: ${data.correctAnswers}/${data.totalQuestions}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="score-val ${scoreColor}">${data.score}/${data.maxMarks}</div>
+                        <button class="btn-review" onclick="window.openTestResult(${loopIndex})">
+                            <i class="fas fa-search"></i> Review
+                        </button>
+                    </div>
+                </div>`;
+                
+                loopIndex++; // 🚀 YAHAN LOOP INDEX KO BADHA RAHE HAIN
+            });
+            
+            document.getElementById('total-tests').innerText = window.userTestHistory.length;
+            document.getElementById('highest-score').innerText = `${highestScore}/${highestMax}`;
+            historyContainer.innerHTML = html;
+            return userDetails;
+        } catch (e) {
+            historyContainer.innerHTML = `<p style="color:red;">Error fetching data: ${e.message}</p>`;
+        }
+    }
+
+   // 🚀 NEW: Redirect back to the test file to show the result/review screen
+    window.openTestResult = function(index) {
+        const data = window.userTestHistory[index];
+        
+        if (!data.testUrl) {
+            alert("⚠️ Purane tests me URL save nahi tha. Kripya naya test attempt karein is feature ke liye.");
+            return;
+        }
+        if (!data.questionAnalysis) {
+            alert("⚠️ Is test ka detailed analysis save nahi hai.");
+            return;
+        }
+
+        // Database data se wapas "championTestState" format banate hain
+        const answersArray = data.questionAnalysis.map(q => q.userAnswer !== undefined ? q.userAnswer : null);
+        const reviewArray = data.questionAnalysis.map(q => q.markedForReview || false);
+        const timeSpentArray = data.questionAnalysis.map(q => q.timeSpentSeconds || 0);
+
+        const stateToRestore = {
+            answers: answersArray,
+            review: reviewArray,
+            timeSpent: timeSpentArray,
+            status: 'submitted' 
+        };
+
+        // Storage update karein 
+        localStorage.setItem('championTestState', JSON.stringify(stateToRestore));
+        
+        // 🌟 SMART URL FIX: Localhost aur Live Website ke beech conflict rokne ke liye
+        let finalUrl = data.testUrl;
+        try {
+            // Database me save URL ka sirf 'path' nikalenge aur current live domain ke aage jod denge
+            let savedUrlObj = new URL(data.testUrl);
+            finalUrl = window.location.origin + savedUrlObj.pathname + savedUrlObj.search;
+        } catch (e) {
+            console.log("URL parsing error", e);
+        }
+
+        // Final URL par bhej do
+        window.location.href = finalUrl;
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const userDetails = await loadProfileData(user);
+            window.toggleEditMode = () => toggleEditMode(userDetails); 
+        } else {
+            window.location.href = 'login.html'; 
+        }
+    });
+</script>
+</body>
+</html>

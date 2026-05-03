@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - Awesome Test</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* CSS styles remain the same for professional design */
+        .auth-container {
+            background: var(--white);
+            padding: 40px 30px; 
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(41, 128, 185, 0.15); 
+            width: 100%;
+            max-width: 380px; 
+            text-align: center;
+        }
+        .auth-container h2 { 
+            color: var(--primary); 
+            margin-bottom: 30px; 
+            font-weight: 700;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        .input-group { 
+            margin-bottom: 18px; 
+            text-align: left;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.2);
+            outline: none;
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-auth:hover { 
+            background: #2471a3; 
+            transform: translateY(-1px);
+        }
+        
+        .btn-google {
+            background: #ffffff;
+            color: var(--dark);
+            border: 1px solid #ccc;
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-google:hover {
+            background: #f8f8f8;
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(41, 128, 185, 0.1);
+        }
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .toggle-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: block;
+        }
+        .status-msg {
+            margin-top: 15px;
+            font-weight: 500;
+            color: #e74c3c;
+        }
+        .reset-link {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: right;
+            display: block;
+            margin-top: -10px;
+            text-decoration: none; /* Make link look like text */
+        }
+        .reset-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About Me</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="auth-hero">
+        <div class="auth-container">
+            <h2>User Authentication</h2>
+            
+            <button class="btn-google" onclick="handleGoogleLogin()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo">
+                Sign in with Google
+            </button>
+
+            <div style="margin: 25px 0; color: #aaa; position: relative;">
+                <span style="background: white; padding: 0 10px; z-index: 1;">OR</span>
+                <hr style="position: absolute; width: 100%; top: 50%; border: none; border-top: 1px solid #eee; z-index: 0;">
+            </div>
+
+            
+            <div id="email-auth-view">
+                <div id="login-form">
+                    <h3>Login with Email</h3>
+                    <div class="input-group">
+                        <input type="email" id="login-email" placeholder="Email Address">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-password" placeholder="Password">
+                    </div>
+                    
+                    <a href="reset-password.html" class="reset-link">Forgot Password?</a> 
+                    
+                    <button class="btn-auth" onclick="handleLogin()">Login</button>
+                    <span class="toggle-link" onclick="toggleAuthView('signup')">Need an account? Sign Up</span>
+                </div>
+
+                <div id="signup-form" style="display:none;">
+                    <h3>Create New Account</h3>
+                    <div class="input-group">
+                        <input type="text" id="signup-name" placeholder="Full Name">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signup-email" placeholder="Email Address">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="signup-dob" style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">Date of Birth</label>
+                        <input type="date" id="signup-dob">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="signup-password" placeholder="Password (Min 6 characters)">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm Password">
+                    </div>
+
+                    <button class="btn-auth" onclick="handleSignup()">Sign Up</button>
+                    <span class="toggle-link" onclick="toggleAuthView('login')">Already have an account? Login</span>
+                </div>
+            </div>
+            
+            <p class="status-msg" id="auth-message"></p>
+        </div>
+    </header>
+
+<script type="module">
+    // 🛑 FIREBASE SDK IMPORTS (Removed sendPasswordResetEmail as it's now in reset-password.html)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { 
+        getAuth, 
+        signInWithEmailAndPassword, 
+        createUserWithEmailAndPassword, 
+        onAuthStateChanged, 
+        updateProfile,
+        GoogleAuthProvider, 
+        signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    
+    // 🛑 AAPKI FIREBASE CONFIGURATION
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+        authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+        projectId: "ujjwal-test-69e8d",
+        storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+        messagingSenderId: "1079902323676",
+        appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    
+    const googleProvider = new GoogleAuthProvider();
+    
+    const authMessage = document.getElementById('auth-message');
+
+    // --- FUNCTION TO CREATE/UPDATE USER PROFILE IN FIRESTORE ---
+    async function createOrUpdateUserProfile(user, additionalData = {}) {
+        const profileRef = doc(db, "user_details", user.uid);
+        const profileSnap = await getDoc(profileRef);
+
+        if (!profileSnap.exists()) {
+            await setDoc(profileRef, {
+                userId: user.uid,
+                email: user.email || 'N/A',
+                dob: additionalData.dob || '',
+                createdAt: new Date().toISOString()
+            });
+        }
+    }
+    
+    // --- AUTH FUNCTIONS ---
+
+    async function handleLogin() {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        authMessage.innerText = 'Logging in...';
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            await createOrUpdateUserProfile(userCredential.user);
+        } catch (error) {
+            authMessage.innerText = `Login Failed: ${error.message}`;
+        }
+    }
+
+    async function handleSignup() {
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value; 
+        const dob = document.getElementById('signup-dob').value; 
+        
+        if (!name || !email || !password || !confirmPassword || !dob) { 
+            authMessage.innerText = 'Please fill in all required fields.';
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            authMessage.innerText = 'Error: Password and Confirm Password do not match.';
+            return;
+        }
+
+        authMessage.innerText = 'Creating account...';
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(userCredential.user, { displayName: name });
+            await createOrUpdateUserProfile(userCredential.user, { dob: dob });
+        } catch (error) {
+            authMessage.innerText = `Sign Up Failed: ${error.message}`;
+        }
+    }
+
+    async function handleGoogleLogin() {
+        authMessage.innerText = 'Signing in with Google...';
+        authMessage.style.color = '#3498db';
+
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            await createOrUpdateUserProfile(result.user);
+        } catch (error) {
+            authMessage.innerText = `Google Login Failed: ${error.message}`;
+            authMessage.style.color = '#e74c3c';
+        }
+    }
+
+    // Auth view toggle function (Simplified)
+    window.toggleAuthView = function(view) {
+        if (view === 'signup') {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        } else {
+            // Default to login view
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+        }
+        authMessage.innerText = '';
+    }
+
+    // Auth state check karke redirect karna
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = 'subjects.html';
+        } 
+        // Initial setup for the view
+        window.toggleAuthView('login');
+    });
+
+    // --- Global Window Functions ---
+    window.handleLogin = handleLogin;
+    window.handleSignup = handleSignup;
+    window.handleGoogleLogin = handleGoogleLogin; 
+</script>
+
+</body>
+</html>

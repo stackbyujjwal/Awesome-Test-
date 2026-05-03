@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="assets/img/ujjLogo.png"
+      type="image/x-icon"
+    />
+    <!-- =============================== FONT AWESOME ============================= -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    
+    <!-- ============================= Email js =============================== -->
+     
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- =============================== CSS ============================= -->
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <title>Ujjwal Sharma - Elite Full Stack Engineer</title>
+  </head>
+  <body>
+    <!-- ============================== STYLE SWITCHER ==================================== -->
+
+    <input type="radio" name="color" id="color-1" />
+    <input type="radio" name="color" id="color-2" />
+    <input type="radio" name="color" id="color-3" />
+    <input type="radio" name="color" id="color-4" />
+    <input type="radio" name="color" id="color-5" />
+    <input type="radio" name="color" id="color-6" />
+    <input type="radio" name="color" id="color-7" />
+    <input type="radio" name="color" id="color-8" />
+    <input type="radio" name="color" id="color-9" />
+    <input type="radio" name="color" id="color-10" />
+    <input type="checkbox" id="toggler" />
+    <input type="checkbox" id="day-night" />
+
+    <div class="style__switcher">
+      <label for="toggler" class="style__switcher-toggler">
+        <i class="fa-solid fa-gear fa-spin"></i>
+      </label>
+
+      <label for="day-night" class="style__switcher-theme">
+        <i class="fa-solid fa-sun"></i>
+        <i class="fa-solid fa-moon"></i>
+      </label>
+
+      <h3 class="style__switcher-title">Theme Colors</h3>
+
+      <div class="style__switcher-colors">
+        <label for="color-1" class="color-1 color"></label>
+        <label for="color-2" class="color-2 color"></label>
+        <label for="color-3" class="color-3 color"></label>
+        <label for="color-4" class="color-4 color"></label>
+        <label for="color-5" class="color-5 color"></label>
+        <label for="color-6" class="color-6 color"></label>
+        <label for="color-7" class="color-7 color"></label>
+        <label for="color-8" class="color-8 color"></label>
+        <label for="color-9" class="color-9 color"></label>
+        <label for="color-10" class="color-10 color"></label>
+      </div>
+    </div>
+
+    <!-- ================================= HEADER ====================================== -->
+    <header class="header">
+      <nav class="nav container">
+        <a href="index.html" class="nav__logo"
+          ><i class="fa-solid fa-user-graduate"></i
+        > &nbsp; Ujjwal</a>
+
+        <input type="checkbox" id="nav-toggler">
+
+        <label for="nav-toggler" class="nav__toggle">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="#home" class="nav__link active-link">Home</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#about" class="nav__link">About</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#qualification" class="nav__link">Experience</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#services" class="nav__link">Services</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#works" class="nav__link">Portfolio</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#contact" class="nav__link">Contact</a>
+          </li>
+        </ul>
+
+       
+      </nav>
+    </header>
+
+    <!-- ================================== MAIN =========================================== -->
+    <main class="main">
+      <!-- ================================= HOME  ======================================== -->
+      <section class="home" id="home">
+        <div class="home__container container grid">
+          <div class="home__content">
+            <span class="home__small">Hello</span>
+            <h1 class="home__title">
+              <span>I'm</span> Ujjwal Sharma <br />
+              <span>a Full Stack Engineer</span>
+            </h1>
+
+            <p class="home__discription">
+              "Hi there, I'm Ujjwal, Founder @StackByUjjwal. I turn caffeine into code and bugs into features. I build highly scalable web architectures that even your grandma would love, unless she clicks on the ads!"
+            </p>
+           <div class="home__btns">
+              <a href="#contact" class="btn">Hire Me</a>
+              <a href="#works" class="btn btn__transparent">Portfolio</a>
+              <a href="https://github.com/stackbyujjwal" target="_blank" class="btn btn__transparent"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+          </div>
+          <div class="home__img-wrapper">
+            <img src="assets/img/homeimg.png" alt="" class="home__img" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= ABOUT  ======================================== -->
+      <section class="about section" id="about">
+        <div class="about__container container grid">
+          <div class="about__img-wrapper">
+            <img src="assets/img/aboutimg.jpg" alt="" class="about__img" />
+            <img src="assets/img/aboutimg.jpg" alt="" class="about__img" />
+            <img src="assets/img/aboutimg.jpg" alt="" class="about__img" />
+            <img src="assets/img/aboutimg.jpg" alt="" class="about__img" />
+          </div>
+          <div class="about__content">
+            <h2 class="section__title" data-title="Who Am i?">
+              I'm Ujjwal Sharma, an Elite Full Stack Engineer & UI/UX Designer
+            </h2>
+
+            <p class="about__discription">
+              "Hey there! I create interfaces so smooth they practically butter your toast, and write logic in JS, C++, and Firebase so clean it makes Marie Kondo proud. When I'm not architecting complex databases or prepping for top-tier MCA programs, I'm probably lifting dumbbells or analyzing chess tactics to keep my logic sharp!"
+            </p>
+
+            <ul class="about__data grid">
+              <li class="data__item">
+                <h3 class="data__title">Name:</h3>
+                <span class="data__discripition">Ujjwal Sharma</span>
+              </li>
+
+              <li class="data__item">
+                <h3 class="data__title">Age:</h3>
+                <span class="data__discripition">24 Years</span>
+              </li>
+
+              <li class="data__item">
+                <h3 class="data__title">From:</h3>
+                <span class="data__discripition">Kanpur, India</span>
+              </li>
+
+              <li class="data__item">
+                <h3 class="data__title">Email:</h3>
+                <span class="data__discripition about__link"
+                  >stackbyujjwal@gmail.com</span
+                >
+              </li>
+            </ul>
+            <div class="about__bottom">
+              <a
+                href="#" target="_blank"
+                download="Ujjwal_Cv.pdf"
+                class="btn"
+                >Download CV</a
+              >
+
+              <div class="about__social-links">
+                <a href="https://x.com/StackByUjjwal" class="about__social-link" target="_blank">
+                  <i class="fa-brands fa-twitter"></i>
+                </a>
+
+                <a href="https://instagram.com/stackbyujjwal" target="_blank"  class="about__social-link">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <!-- Changed FB to GitHub to match the developer vibe -->
+                <a href="https://github.com/stackbyujjwal" target="_blank" class="about__social-link">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+
+                <a href="https://linkedin.com/in/stackbyujjwal" target="_blank" class="about__social-link">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= QUALIFICATION  ======================================== -->
+      <section class="qualification section" id="qualification">
+        <h2 class="section__title title-center" data-title="my journey">
+          Qualification
+        </h2>
+
+        <div class="resume__container container grid">
+          <div class="resume__group">
+            <h3 class="resume__heading">Education</h3>
+
+            <div class="resume__items">
+              <div class="resume__item">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">Graduate</h3>
+                  <span class="resume__icon">+</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">B.Sc Physics</h3>
+                    <span class="resume__date">2020 - 2023</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Graduated with a degree in Physics from Markham College of Commerce. This strong mathematical and analytical foundation directly translates into my ability to write complex algorithms and optimized code.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume__items">
+              <div class="resume__item resume__itemm">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">Higher Education Prep</h3>
+                  <span class="resume__icon">-</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">MCA Preparation</h3>
+                    <span class="resume__date">2024 - Present</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Currently based in Kanpur, aggressively preparing for top-tier competitive entrance exams like NIMCET and CUET PG to pursue a Master of Computer Applications (MCA) and elevate my software engineering expertise.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume__items">
+              <div class="resume__item resume__itemm">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">Biyoans Pvt. Ltd.</h3>
+                  <span class="resume__icon">+</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">Frontend Development</h3>
+                    <span class="resume__date">2023 - 2024</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Underwent rigorous frontend development training at Biyoans Pvt. Ltd. The program emphasized a systematic approach to building user interfaces, mastering HTML, CSS, JavaScript, and responsive design frameworks.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume__group">
+            <h3 class="resume__heading">Experience</h3>
+
+            <div class="resume__items">
+              <div class="resume__item">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">Founder & Engineer</h3>
+                  <span class="resume__icon">+</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">@StackByUjjwal</h3>
+                    <span class="resume__date">2024 - PRESENT</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Building a personal tech brand and community. Sharing coding insights, development journeys, and creating robust full-stack applications to solve real-world problems.
+                  @StackByUjjwal is my passion project
+
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume__items">
+              <div class="resume__item resume__itemm">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">UI/UX Designer</h3>
+                  <span class="resume__icon">-</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">Freelancer</h3>
+                    <span class="resume__date">2023 - PRESENT</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Practical UI/UX design experience gained through freelance work. I excel in creating intuitive interfaces, conducting user research, and bridging the gap between beautiful aesthetics and functional code.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume__items">
+              <div class="resume__item resume__itemm">
+                <div class="resume_header">
+                  <h3 class="resume__subtitle">Graphic Designer</h3>
+                  <span class="resume__icon">+</span>
+                </div>
+
+                <div class="resume__content">
+                  <div class="resume__date-title">
+                    <h3 class="resume__title">self</h3>
+                    <span class="resume__date">2020 - 2023</span>
+                  </div>
+
+                  <p class="resume__description">
+                    Honed my creative eye working in a fast-paced studio environment. Expertise includes creating visual identities, digital/print designs, and collaborating to bring a client's vision to life.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= SERVICES  ======================================== -->
+      <section class="services section" id="services">
+        <h2 class="section__title title-center" data-title="Services">
+          What I do for you
+        </h2>
+
+        <div class="service__container container grid">
+          <div class="services__item">
+            <i class="fa-solid fa-laptop-code services__icon"></i>
+            <h3 class="service__title">Full Stack Development</h3>
+
+            <p class="services__description">
+              I'm your web wizard! With my coding wand (JS & Firebase), I'll conjure up custom scalable web architectures that fit your needs like a tailored suit.
+            </p>
+
+            <span class="services__no">01</span>
+          </div>
+
+          <div class="services__item">
+            <i class="fa-solid fa-pen-to-square services__icon"></i>
+            <h3 class="service__title">UI/UX Design</h3>
+
+            <p class="services__description">
+              I'm your UI/UX maestro! I'll jazz up your project with a design symphony that's as smooth as butter and as intuitive as your favorite app.
+            </p>
+
+            <span class="services__no">02</span>
+          </div>
+
+          <div class="services__item">
+            <i class="fa-solid fa-database services__icon"></i>
+            <h3 class="service__title">Database Architecture</h3>
+
+            <p class="services__description">
+              Structuring robust and secure databases. I ensure your app's data flows flawlessly and scales effortlessly as your user base grows.
+            </p>
+
+            <span class="services__no">03</span>
+          </div>
+
+          <div class="services__item">
+            <i class="fa-solid fa-swatchbook services__icon"></i>
+            <h3 class="service__title">Graphic Design</h3>
+
+            <p class="services__description">
+              I'm your go-to for graphic design—ready to splash some color, spin some magic, and turn your ideas into visual fireworks!
+            </p>
+
+            <span class="services__no">04</span>
+          </div>
+
+          <div class="services__item">
+            <i class="fa-solid fa-photo-film services__icon"></i>
+            <h3 class="service__title">Video Editing</h3>
+
+            <p class="services__description">
+              I bring the magic of video editing to your fingertips. Let's turn your raw footage into a polished masterpiece for your brand.
+            </p>
+
+            <span class="services__no">05</span>
+          </div>
+
+          <div class="services__item">
+            <i class="fa-solid fa-magnifying-glass-chart services__icon"></i>
+            <h3 class="service__title">Research & Logic</h3>
+
+            <p class="services__description">
+              I've got ninja skills in research and problem-solving – I'll hunt down bugs faster than you can say 'Google it', and unravel complex logic!
+            </p>
+
+            <span class="services__no">06</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= SKILLS  ======================================== -->
+      <section class="skills section" id="skills">
+        <h2 class="section__title title-center" data-title="My Talent">
+          Professional Skills
+        </h2>
+
+        <div class="skills__container container grid">
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">JavaScript</h3>
+              <span class="skills__no">90%</span>
+            </div>
+
+            <p class="skills__description">
+              Mastering the DOM, asynchronous programming, and modern ES6+ features to build highly dynamic and interactive web applications.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 90%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">Firebase & Databases</h3>
+              <span class="skills__no">85%</span>
+            </div>
+
+            <p class="skills__description">
+              Architecting secure backends, real-time NoSQL databases, and managing seamless user authentication for full-stack projects.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 85%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">C++ & Algorithms</h3>
+              <span class="skills__no">80%</span>
+            </div>
+
+            <p class="skills__description">
+              Writing high-performance core logic and optimizing data structures. Solving complex computational problems is my kind of brain gym.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 80%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">HTML5</h3>
+              <span class="skills__no">95%</span>
+            </div>
+
+            <p class="skills__description">
+              I've mastered HTML inside out—ready to craft web semantics that are as solid as a rock and accessible for all users.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 95%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">CSS3 & Styling</h3>
+              <span class="skills__no">90%</span>
+            </div>
+
+            <p class="skills__description">
+              Wielding modern CSS (Flexbox, Grid, Animations) to create eye-catching, fully responsive designs that mesmerize and delight.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 90%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills__item">
+            <div class="skills__titles">
+              <h3 class="skills__name">UI/UX Design</h3>
+              <span class="skills__no">85%</span>
+            </div>
+
+            <p class="skills__description">
+              Bridging the gap between code and aesthetics. I design wireframes and user flows that guarantee a seamless digital experience.
+            </p>
+
+            <div class="skills__bar">
+              <div class="skills__percentage" style="width: 85%">
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= PORTFOLIO  ======================================== -->
+      <section class="works section" id="works">
+        <h2 class="section__title title-center" data-title="My Portfolio">
+          Recent Work
+        </h2>
+
+        <div class="work__container container grid">
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">School Website</h3>
+              <span class="work__description">Quirky design that grabs attention instantly!</span>
+            </div>
+          </div>
+
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1720&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">Portfolio Website</h3>
+              <span class="work__description">Showcasing my skills with style and humor!</span>
+            </div>
+          </div>
+
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">Smart Habit Tracker</h3>
+              <span class="work__description">Full-stack web app integrated with Firebase database.</span>
+            </div>
+          </div>
+
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1556442811-a6d34a973954?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">Restaurant Website</h3>
+              <span class="work__description">Delicious bites: Eat, repeat!</span>
+            </div>
+          </div>
+
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1613909207039-6b173b755cc1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGdyYXBoaWMlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">UI/UX Design</h3>
+              <span class="work__description">Vibrant Fun, Click Happy, Smile More!</span>
+            </div>
+          </div>
+
+          <div class="work__cards">
+            <img
+              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+              class="work__img"
+            />
+
+            <div class="work__details">
+              <h3 class="work__title">Ecommerce Platform</h3>
+              <span class="work__description">Shop Till You Drop, Giggle & Save!</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= TESTIMONIALS  ======================================== -->
+      <section class="testimonials section">
+        <h2 class="section__title title-center" data-title="testimonials">
+          What My Clients Say
+        </h2>
+
+        <div class="testimonials__container container grid">
+          <div class="testimonials__item">
+            <div class="testimonial_quote">
+              <i class="fa-solid fa-quote-left"></i>
+            </div>
+            <p class="testimonials__description">
+              Working with Ujjwal Sharma to develop my website was a fantastic experience. They delivered an attractive, user-friendly site that exceeded my expectations. Their creativity and attention to detail truly set them apart. I’m thrilled with the final product and highly recommend their services!
+            </p>
+
+            <div class="testimonials__data">
+              <img
+                src="assets/img/Gopal_sir.jpg"
+                alt=""
+                class="testimonials__img"
+              />
+
+              <div>
+                <h3 class="testimonials__name">Gopal Mishra</h3>
+                <span class="testimonial__identity"
+                  >Management, Biyoans Pvt. Ltd.</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonials__item">
+            <div class="testimonial_quote">
+              <i class="fa-solid fa-quote-left"></i>
+            </div>
+            <p class="testimonials__description">
+              Collaborating with Ujjwal on my project was an outstanding experience. He crafted a visually stunning and highly functional site that perfectly showcases the work. His professionalism, backend expertise, and problem-solving skills were evident throughout the process. Highly recommended!
+            </p>
+
+            <div class="testimonials__data">
+              <img
+                src="assets/img/aboutimg.jpg"
+                alt=""
+                class="testimonials__img"
+              />
+
+              <div>
+                <h3 class="testimonials__name">Mahima Jat</h3>
+                <span class="testimonial__identity"
+                  >BCA Scholar & Client</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================= CONTACT  ======================================== -->
+      <section class="contact section" id="contact">
+        <h2 class="section__title title-center" data-title="Get In Touch">
+          Contact Me
+        </h2>
+
+        <div class="contact__container container grid">
+          <div class="contact__detail">
+            <div class="contact__item">
+              <i class="fa-solid fa-phone contact__icon"></i>
+              <div>
+                <h3 class="contact__title">Call Me</h3>
+                <span class="contact__data">+91 9334790796</span>
+              </div>
+            </div>
+
+            <div class="contact__item">
+              <i class="fa-solid fa-envelope contact__icon"></i>
+              <div>
+                <h3 class="contact__title">Email Me</h3>
+                <span class="contact__data">stackbyujjwal@gmail.com</span>
+              </div>
+            </div>
+
+            <div class="contact__item">
+              <i class="fa-solid fa-location-dot contact__icon"></i>
+              <div>
+                <h3 class="contact__title">Location</h3>
+                <span class="contact__data">Kanpur, Uttar Pradesh, India</span>
+              </div>
+            </div>
+          </div>
+
+          <form action="" class="contact__form" id="contact-form" onsubmit="sendMail(event)">
+            <div class="form__group">
+              <div class="form__input">
+                <input type="text" placeholder="Name" class="input__control" id="name" />
+              </div>
+              <div class="form__input">
+                <input type="email" id="email" placeholder="Email...." class="input__control" />
+              </div>
+            </div>
+            <div class="form__input">
+              <input type="text" placeholder="Subject" class="input__control" name="subject" id="subject" />
+            </div>
+            <div class="form__input">
+              <textarea name="message" id="message" placeholder="Message" class="input__control textarea"></textarea>
+            </div>
+            <button type="submit" class="btn contact__btn">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================================= FOOTER  ======================================== -->
+      <footer class="footer">
+        <div class="footer__container container">
+          <p class="footer__copyright">
+            &copy; 2026 Ujjwal Sharma (@StackByUjjwal). All Rights Reserved
+          </p>
+
+          <div class="footer__social-links">
+            <a href="https://x.com/StackByUjjwal" target="_blank" class="footer__social-link">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+
+            <a href="https://instagram.com/stackbyujjwal" target="_blank" class="footer__social-link">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://github.com/stackbyujjwal" target="_blank" class="footer__social-link">
+              <i class="fa-brands fa-github"></i>
+            </a>
+
+            <a href="https://linkedin.com/in/stackbyujjwal" target="_blank" class="footer__social-link">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- Dark Theme Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+  </body>
+</html>

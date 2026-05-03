@@ -1,0 +1,235 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: #2980b9;
+    --dark: #2c3e50;
+    --light: #f5f7fa;
+    --white: #ffffff;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body { background: var(--light); color: var(--dark); line-height: 1.6; }
+
+/* PROFESSIONAL NAVIGATION LINKS START (Ab koi conflict nahi hai) */
+.nav-links a, .header-controls a, .header-controls button, .btn-nav {
+    text-decoration: none;
+    color: var(--dark) !important;
+    margin-left: 15px; 
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex; /* Icon aur text ko align karne ke liye */
+    align-items: center;
+    gap: 5px; 
+}
+
+.nav-links a:hover, .header-controls a:hover, .header-controls button:hover, .btn-nav:hover {
+    color: var(--primary) !important;
+    background: #eaf2f8; 
+    border-color: #eaf2f8; 
+}
+
+/* Specific button style for 'Start Test' or important actions */
+.btn-primary-nav { 
+    background: var(--primary);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(41, 128, 185, 0.2);
+}
+.btn-primary-nav:hover {
+    background: #2471a3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+/* PROFESSIONAL NAVIGATION LINKS END */
+
+/* Navigation Bar */
+.navbar {
+    background: var(--white);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+
+/* Hero Section (Front Page) */
+.hero {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #eaf2f8 0%, #ffffff 100%);
+    padding: 20px;
+}
+
+.hero h1 { font-size: 3rem; margin-bottom: 10px; color: var(--dark); }
+.hero span { color: var(--primary); }
+.hero p { font-size: 1.2rem; color: #666; margin-bottom: 30px; max-width: 600px; }
+
+.btn-lg {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+.btn-lg:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(41, 128, 185, 0.3); }
+
+/* About Section */
+.container { max-width: 1000px; margin: 50px auto; padding: 20px; }
+.about-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.profile-img {
+    width: 150px;
+    height: 150px;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    object-fit: cover;
+}
+
+/* Subjects Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: 0.3s;
+    border-top: 4px solid var(--primary);
+}
+.card:hover { transform: translateY(-5px); }
+.card h3 { margin-bottom: 15px; }
+.card p { color: #777; font-size: 0.9rem; margin-bottom: 20px; }
+.btn-sm {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    border: 1px solid var(--primary);
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.btn-sm:hover { background: var(--primary); color: white; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .nav-links { display: none; } /* Mobile menu hidden for simplicity */
+}
+
+
+/* Test List Styling */
+.test-list-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-top: 40px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.test-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eceff3;
+    transition: background 0.3s;
+}
+.test-item:last-child { border-bottom: none; }
+.test-item:hover { background: #f9f9f9; }
+
+.test-info h4 { margin-bottom: 5px; color: var(--dark); }
+.test-meta { font-size: 0.85rem; color: #777; }
+.test-meta i { margin-right: 5px; }
+
+.back-btn {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    border: 1px solid transparent;
+    background: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+.back-btn:hover { color: var(--primary); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Fix for List */
+@media (max-width: 768px) {
+    .test-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .test-item .btn-sm { width: 100%; text-align: center; }
+}
+
+
+/* =========================================
+   TEST ITEM CARD LAYOUT (Global Fix)
+   ========================================= */
+.test-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary);
+    transition: transform 0.2s;
+}
+
+.test-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.test-meta span {
+    font-size: 0.9rem;
+    color: #777;
+    margin-right: 15px;
+}

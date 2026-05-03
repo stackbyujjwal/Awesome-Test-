@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Subject</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <nav class="navbar">
+    <a href="subjects.html" class="logo">Awesome test</a>
+    <div class="nav-links" id="main-nav-links">
+        <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+    </div>
+    <div class="header-controls" id="auth-controls">
+        <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+            <i class="fas fa-user-circle"></i> Profile
+        </a>
+        <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+    </div>
+</nav>
+
+<script type="module">
+    // FIREBASE SECURITY & DYNAMIC NAV LOGIC
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+        authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+        projectId: "ujjwal-test-69e8d",
+        storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+        messagingSenderId: "1079902323676",
+        appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    window.handleLogout = async () => { await signOut(auth); };
+
+    onAuthStateChanged(auth, (user) => {
+        const profileLink = document.getElementById('profile-link');
+        const logoutButton = document.getElementById('logout-button');
+        const loginButton = document.getElementById('login-button');
+
+        if (user) {
+            loginButton.style.display = 'none';
+            profileLink.style.display = 'inline-flex'; 
+            logoutButton.style.display = 'inline-flex'; 
+            profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+            profileLink.classList.remove('btn-primary-nav'); 
+        } else {
+            // Unauthenticated: Redirect to login page
+            window.location.href = 'login.html'; 
+        }
+    });
+</script>
+
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 10px;">Exam Library</h2>
+        <p style="text-align: center; color: #666;">Choose a subject to start practicing</p>
+
+        <div class="grid">
+
+            <div class="card">
+                <i class="fas fa-laptop-code" style="font-size: 2rem; color: #27ae60; margin-bottom: 15px;"></i>
+                <h3>Computer Awareness</h3>
+                <p>Data Representation, Boolean Algebra & Basics.</p>
+                <a href="computer.html" class="btn-sm">Attempt Test</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-calculator" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3>Mathematics</h3>
+                <p>Set Theory, Calculus, Algebra & Trigonometry.</p>
+                <a href="math.html" class="btn-sm">Attempt Test</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-brain" style="font-size: 2rem; color: #e67e22; margin-bottom: 15px;"></i>
+                <h3>Logical Reasoning</h3>
+                <p>Puzzles, Series, Blood Relations & Logic.</p>
+                <a href="reasoning.html" class="btn-sm">Attempt Test</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-history" style="font-size: 2rem; color: #8e44ad; margin-bottom: 15px;"></i>
+                <h3>PYQ Papers</h3>
+                <p>NIMCET & JEE Mains Previous Year Questions.</p>
+                <a href="pyqs.html" class="btn-sm">Attempt Test</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-trophy" style="font-size: 2rem; color: #f1c40f; margin-bottom: 15px;"></i>
+                <h3>Leaderboard </h3>
+                <p>View top scores across all tests.</p>
+                <a href="leaderboard.html" class="btn-sm">View Ranks</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Topics - Ujjwal Academy</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links" id="main-nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="topic-view">
+            <h2 style="text-align: center; margin-bottom: 10px;">Computer Science Topics</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">NIMCET Computer Awareness Section</p>
+
+            <div class="grid">
+
+                <div class="card" onclick="loadTests('boolean')">
+                    <i class="fas fa-microchip" style="font-size: 2rem; color: #9b59b6; margin-bottom: 15px;"></i>
+                    <h3>Boolean Algebra</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('mocks')">
+                    <i class="fas fa-laptop-code" style="font-size: 2rem; color: #3498db; margin-bottom: 15px;"></i>
+                    <h3>Practice Series</h3>
+                    <p>10 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('data_rep')">
+                    <i class="fas fa-binary" style="font-size: 2rem; color: #e74c3c; margin-bottom: 15px;"></i>
+                    <h3>Data Representation</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+
+                <div class="card" onclick="loadTests('basics')">
+                    <i class="fas fa-desktop" style="font-size: 2rem; color: #f1c40f; margin-bottom: 15px;"></i>
+                    <h3>Computer Basics</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('memory')">
+                    <i class="fas fa-hdd" style="font-size: 2rem; color: #2ecc71; margin-bottom: 15px;"></i>
+                    <h3>Memory Org.</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                 <div class="card" onclick="loadTests('network')">
+                    <i class="fas fa-network-wired" style="font-size: 2rem; color: #34495e; margin-bottom: 15px;"></i>
+                    <h3>Networking</h3>
+                    <p>2 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="test-view" class="test-list-container" style="display: none;">
+            <div onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Topics</div>
+            
+            <h2 id="selected-topic-title" style="margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom:10px;">Topic Name</h2>
+
+            <div id="tests-container"></div>
+        </div>
+
+    </div>
+
+   <script type="module">
+        // 🛑 FIREBASE AUTH AND CONFIGURATION
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+            authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+            projectId: "ujjwal-test-69e8d",
+            storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+            messagingSenderId: "1079902323676",
+            appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.handleLogout = async () => { await signOut(auth); };
+
+        // 🛑 NAV BAR AND AUTH CHECK LOGIC
+        onAuthStateChanged(auth, (user) => {
+            const profileLink = document.getElementById('profile-link');
+            const logoutButton = document.getElementById('logout-button');
+            const loginButton = document.getElementById('login-button');
+
+            if (user) {
+                loginButton.style.display = 'none';
+                profileLink.style.display = 'inline-flex'; 
+                logoutButton.style.display = 'inline-flex'; 
+                profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+                profileLink.classList.remove('btn-primary-nav'); 
+            } else {
+                window.location.href = 'login.html'; 
+            }
+        });
+
+        // --- DATA CONFIGURATION FOR COMPUTER ---
+        
+        const topicsData = {
+            
+            'boolean': {
+                title: "Boolean Algebra & Logic Gates",
+                tests: [
+                    { name: "Logic Gates & Boolean Algebra Full Test 1", time: "45 Mins", marks: "600", file: "tests/Computer/boolean-algebra/basic_computer_test.html", level: "Moderate" },
+                    { name: "Logic Gates & Boolean Algebra Full Test 2", time: "30 Mins", marks: "300", file: "tests/Computer/boolean-algebra/advance_computer_test.html", level: "Advanced" },
+                    { name: "Logic Gates & Boolean Algebra Theory Based",time: "45 Mins", marks: "600", file: "tests/Computer/boolean-algebra/theory_base.html", level: "Moderate" }
+                ]
+            },
+
+            'mocks': {
+                title: "NIMCET Computer Practice Series",
+                tests: [
+                    { name: "Computer Test 1", time: "20 Mins", marks: "120", file: "tests/computer/practice-series/c-p-test1.html", level: "Basic" },
+                    { name: "Computer Test 2", time: "20 Mins", marks: "120", file: "tests/computer/practice-series/c-p-test2.html", level: "Basic" },
+                ]
+            },
+            'data_rep': {
+                title: "Data Representation (Binary, Hex, Octal)",
+                tests: [
+                    { name: "Number System Basics", time: "15 Mins", marks: "30", file: "tests/Computer/datarep/test1.html", level: "Basic" },
+                    { name: "Conversions & Arithmetic", time: "25 Mins", marks: "50", file: "tests/Computer/datarep/test2.html", level: "Moderate" },
+                    { name: "Complements & Floating Point", time: "35 Mins", marks: "70", file: "tests/Computer/datarep/test3.html", level: "Advanced" }
+                ]
+            },
+    
+            'basics': {
+                title: "Introduction to Computers",
+                tests: [
+                    { name: "Generations & Types", time: "15 Mins", marks: "30", file: "exam.html", level: "Basic" },
+                    { name: "Input/Output Devices", time: "20 Mins", marks: "40", file: "exam.html", level: "Moderate" },
+                    { name: "CPU Architecture", time: "30 Mins", marks: "60", file: "exam.html", level: "Advanced" }
+                ]
+            },
+            'memory': {
+                title: "Computer Memory Organization",
+                tests: [
+                    { name: "RAM/ROM Basics", time: "20 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                    { name: "Cache & Virtual Memory", time: "30 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                    { name: "Secondary Storage", time: "30 Mins", marks: "60", file: "exam.html", level: "Advanced" }
+                ]
+            },
+            'network': {
+                title: "Networking Basics",
+                tests: [
+                    { name: "Topologies & Protocols", time: "25 Mins", marks: "50", file: "exam.html", level: "Moderate" },
+                    { name: "OSI Model", time: "35 Mins", marks: "70", file: "exam.html", level: "Advanced" }
+                ]
+            }
+        };
+
+        // --- FUNCTION LOGIC ---
+        function loadTests(topicId) {
+            
+            // 1. Hide Grid, Show List
+            document.getElementById('topic-view').style.display = 'none';
+            document.getElementById('test-view').style.display = 'block';
+
+            // 2. Get Data for the clicked topic
+            const data = topicsData[topicId];
+            
+            // 3. Update Title
+            document.getElementById('selected-topic-title').innerText = data.title;
+
+            // 4. Generate Test List HTML
+            const container = document.getElementById('tests-container');
+            container.innerHTML = ''; // Clear previous
+
+            data.tests.forEach(test => {
+                // Determine color based on level
+                let badgeColor = '#2ecc71'; // Green (Basic)
+                if(test.level === 'Moderate') badgeColor = '#f39c12'; // Orange
+                if(test.level === 'Advanced') badgeColor = '#e74c3c'; // Red
+
+                const html = `
+                <div class="test-item">
+                    <div class="test-info">
+                        <h4 style="display:flex; align-items:center; gap:10px;">
+                            ${test.name}
+                            <span style="background:${badgeColor}; color:white; font-size:0.7rem; padding:2px 8px; border-radius:4px;">${test.level}</span>
+                        </h4>
+                        <div class="test-meta">
+                            <span><i class="far fa-clock"></i> ${test.time}</span>
+                            <span style="margin-left: 15px;"><i class="far fa-check-circle"></i> ${test.marks} Marks</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="${test.file}" class="btn-sm" style="background:var(--primary); color:white; border:none; text-decoration:none;">Attempt Now</a>
+                    </div>
+                </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function goBack() {
+            document.getElementById('test-view').style.display = 'none';
+            document.getElementById('topic-view').style.display = 'block';
+        }
+        
+        window.loadTests = loadTests;
+        window.goBack = goBack;
+    </script>
+
+</body>
+</html>

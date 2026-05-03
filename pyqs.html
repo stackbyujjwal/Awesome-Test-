@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PYQ Papers - Ujjwal Academy</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links" id="main-nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="topic-view">
+            <h2 style="text-align: center; margin-bottom: 10px;">Previous Year Question Papers</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Select a category to view Year-wise Papers</p>
+
+            <div class="grid">
+                
+                <div class="card" onclick="loadTests('nimcet_full')">
+                    <i class="fas fa-graduation-cap" style="font-size: 2rem; color: #e74c3c; margin-bottom: 15px;"></i>
+                    <h3>NIMCET Full PYQ</h3>
+                    <p>Full Papers (2010 - 2025)</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('nimcet_math')">
+                    <i class="fas fa-calculator" style="font-size: 2rem; color: #2980b9; margin-bottom: 15px;"></i>
+                    <h3>NIMCET Math Only</h3>
+                    <p>Chapterwise / Yearwise</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('nimcet_reasoning')">
+                    <i class="fas fa-brain" style="font-size: 2rem; color: #9b59b6; margin-bottom: 15px;"></i>
+                    <h3>NIMCET Reasoning</h3>
+                    <p>Logical Ability Section</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('nimcet_computer')">
+                    <i class="fas fa-laptop-code" style="font-size: 2rem; color: #34495e; margin-bottom: 15px;"></i>
+                    <h3>NIMCET Computer</h3>
+                    <p>Computer Awareness</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('nimcet_english')">
+                    <i class="fas fa-language" style="font-size: 2rem; color: #2ecc71; margin-bottom: 15px;"></i>
+                    <h3>NIMCET English</h3>
+                    <p>General English</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('jeemains')">
+                    <i class="fas fa-book-open" style="font-size: 2rem; color: #f1c40f; margin-bottom: 15px;"></i>
+                    <h3>JEE Mains Math</h3>
+                    <p>PYQ Math Papers</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="test-view" class="test-list-container" style="display: none;">
+            <div onclick="goBack()" class="back-btn" style="cursor:pointer; margin-bottom:20px; display:inline-block; color:#555;">
+                <i class="fas fa-arrow-left"></i> Back to Topics
+            </div>
+            
+            <h2 id="selected-topic-title" style="margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom:10px;">Topic Name</h2>
+
+            <div id="tests-container"></div>
+        </div>
+
+    </div>
+
+   <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+            authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+            projectId: "ujjwal-test-69e8d",
+            storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+            messagingSenderId: "1079902323676",
+            appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.handleLogout = async () => { await signOut(auth); };
+
+        onAuthStateChanged(auth, (user) => {
+            const profileLink = document.getElementById('profile-link');
+            const logoutButton = document.getElementById('logout-button');
+            const loginButton = document.getElementById('login-button');
+
+            if (user) {
+                loginButton.style.display = 'none';
+                profileLink.style.display = 'inline-flex'; 
+                logoutButton.style.display = 'inline-flex'; 
+                profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+                profileLink.classList.remove('btn-primary-nav'); 
+            } else {
+                window.location.href = 'login.html'; 
+            }
+        });
+
+        // =====================================================
+        // 🛑 MANUAL DATA CONFIGURATION (Add your tests here)
+        // =====================================================
+        
+        const topicsData = {
+            
+            // 1. NIMCET FULL PAPERS
+            'nimcet_full': {
+                title: "NIMCET Full Papers (2010-2025)",
+                tests: [
+                    // Is format ko copy karke naye saal add karein
+                    { name: "NIMCET 2025 Full Mock", time: "120 Mins", marks: "1000", file: "tests/nimcet/full/nimcet_full_2025.html", level: "Mock" },
+                    { name: "NIMCET 2024 PYQ", time: "120 Mins", marks: "1000", file: "tests/nimcet/full/nimcet_full_2024.html", level: "PYQ" },
+                    { name: "NIMCET 2023 PYQ", time: "120 Mins", marks: "1000", file: "tests/nimcet/full/nimcet_full_2023.html", level: "PYQ" },
+                    // Add more here...
+                ]
+            },
+
+            // 2. NIMCET MATH SECTION
+            'nimcet_math': {
+                title: "NIMCET Mathematics Section",
+                tests: [
+                    // Aapka 2025 wala test yahan hai:
+                    { name: "Math Section 2025", time: "60 Mins", marks: "600", file: "tests/pyqs/nimcet-math/nim-math-2025.html", level: "Mock" },
+                    
+                    // Baki saal aise add karein:
+                    { name: "Math Section 2024", time: "60 Mins", marks: "600", file: "tests/pyqs/nimcet-math/nim-math-2024.html", level: "PYQ" },
+                    { name: "Math Section 2023", time: "60 Mins", marks: "600", file: "tests/pyqs/nimcet-math/nim-math-2023.html", level: "PYQ" }
+                ]
+            },
+
+            // 3. REASONING SECTION
+            'nimcet_reasoning': {
+                title: "NIMCET Logical Reasoning",
+                tests: [
+                    { name: "Reasoning Section 2025", time: "40 Mins", marks: "240", file: "tests/pyqs/nimcet-reasoning/nim-reasoning-2025.html", level: "Mock" },
+                    { name: "Reasoning Section 2024", time: "40 Mins", marks: "240", file: "tests/pyqs/nimcet-reasoning/nim-reasoning-2024.html", level: "PYQ" }
+                ]
+            },
+
+            // 4. COMPUTER SECTION
+            'nimcet_computer': {
+                title: "NIMCET Computer Awareness",
+                tests: [
+                    { name: "Computer Section 2025", time: "20 Mins", marks: "80", file: "tests/pyqs/nimcet-computer/nim-computer-2025.html", level: "Mock" },
+                    { name: "Computer Section 2024", time: "20 Mins", marks: "80", file: "tests/pyqs/nimcet-computer/nim-computer-2024.html", level: "PYQ" }
+                ]
+            },
+
+            // 5. ENGLISH SECTION
+            'nimcet_english': {
+                title: "NIMCET General English",
+                tests: [
+                    { name: "English Section 2025", time: "20 Mins", marks: "80", file: "tests/pyqs/nimcet-english/nim-english-2025.html", level: "Mock" },
+                    { name: "English Section 2024", time: "20 Mins", marks: "80", file: "tests/pyqs/nimcet-english/nim-english-2024.html", level: "PYQ" }
+                ]
+            },
+
+            // 6. JEE MAINS
+            'jeemains': {
+                title: "JEE Mains Mathematics",
+                tests: [
+                    { name: "JEE Mains Math 2025", time: "60 Mins", marks: "100", file: "tests/jeemains/jee_math_2025.html", level: "Mock" },
+                    { name: "JEE Mains Math 2024", time: "60 Mins", marks: "100", file: "tests/jeemains/jee_math_2024.html", level: "PYQ" }
+                ]
+            }
+        };
+
+        // --- UI FUNCTIONS ---
+
+        function loadTests(topicId) {
+            document.getElementById('topic-view').style.display = 'none';
+            document.getElementById('test-view').style.display = 'block';
+            
+            const data = topicsData[topicId];
+            document.getElementById('selected-topic-title').innerText = data.title;
+            const container = document.getElementById('tests-container');
+            container.innerHTML = ''; 
+
+            data.tests.forEach(test => {
+                let badgeColor = '#2ecc71'; // Green for PYQ
+                if(test.level === 'Mock') badgeColor = '#f39c12'; // Orange for Mock
+                
+                const html = `
+                <div class="test-item">
+                    <div class="test-info">
+                        <h4 style="display:flex; align-items:center; gap:10px;">
+                            ${test.name}
+                            <span style="background:${badgeColor}; color:white; font-size:0.7rem; padding:2px 8px; border-radius:4px;">${test.level}</span>
+                        </h4>
+                        <div class="test-meta">
+                            <span><i class="far fa-clock"></i> ${test.time}</span>
+                            <span style="margin-left: 15px;"><i class="far fa-check-circle"></i> ${test.marks} Marks</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="${test.file}" class="btn-sm" style="background:var(--primary); color:white; border:none; text-decoration:none;">Attempt Now</a>
+                    </div>
+                </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function goBack() {
+            document.getElementById('test-view').style.display = 'none';
+            document.getElementById('topic-view').style.display = 'block';
+        }
+        
+        window.loadTests = loadTests;
+        window.goBack = goBack;
+    </script>
+
+</body>
+</html>

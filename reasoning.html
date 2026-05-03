@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasoning & Quant Topics - Ujjwal Academy</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links" id="main-nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="topic-view">
+            <h2 style="text-align: center; margin-bottom: 10px;">Reasoning & Quantitative Aptitude</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Logical Reasoning aur Quant ke topics chunein</p>
+
+            <div class="grid">
+                
+                <div class="card" onclick="loadTests('series')">
+                    <i class="fas fa-sort-numeric-up-alt" style="font-size: 2rem; color: #e74c3c; margin-bottom: 15px;"></i>
+                    <h3>Series & Analogy</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('coding')">
+                    <i class="fas fa-code-branch" style="font-size: 2rem; color: #2ecc71; margin-bottom: 15px;"></i>
+                    <h3>Coding-Decoding</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('blood')">
+                    <i class="fas fa-user-friends" style="font-size: 2rem; color: #3498db; margin-bottom: 15px;"></i>
+                    <h3>Blood Relations</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('syllogism')">
+                    <i class="fas fa-lightbulb" style="font-size: 2rem; color: #f1c40f; margin-bottom: 15px;"></i>
+                    <h3>Syllogism & Logic</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('puzzles')">
+                    <i class="fas fa-puzzle-piece" style="font-size: 2rem; color: #9b59b6; margin-bottom: 15px;"></i>
+                    <h3>Seating Arrangements</h3>
+                    <p>4 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('direction')">
+                    <i class="fas fa-compass" style="font-size: 2rem; color: #1abc9c; margin-bottom: 15px;"></i>
+                    <h3>Direction Sense</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('time_work')">
+                    <i class="fas fa-hard-hat" style="font-size: 2rem; color: #e67e22; margin-bottom: 15px;"></i>
+                    <h3>Time & Work / Pipes</h3>
+                    <p>4 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('speed_dist')">
+                    <i class="fas fa-train" style="font-size: 2rem; color: #c0392b; margin-bottom: 15px;"></i>
+                    <h3>Speed, Time & Dist.</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('avg')">
+                    <i class="fas fa-balance-scale" style="font-size: 2rem; color: #7f8c8d; margin-bottom: 15px;"></i>
+                    <h3>Averages & Mixtures</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('profit')">
+                    <i class="fas fa-hand-holding-usd" style="font-size: 2rem; color: #27ae60; margin-bottom: 15px;"></i>
+                    <h3>Profit & Loss / SI-CI</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+                
+                <div class="card" onclick="loadTests('numbers')">
+                    <i class="fas fa-list-ol" style="font-size: 2rem; color: #34495e; margin-bottom: 15px;"></i>
+                    <h3>Number System</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('pnc_prob')">
+                    <i class="fas fa-dice-d20" style="font-size: 2rem; color: #d35400; margin-bottom: 15px;"></i>
+                    <h3>Permutation & Comb.</h3>
+                    <p>4 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="test-view" class="test-list-container" style="display: none;">
+            <div onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Topics</div>
+            
+            <h2 id="selected-topic-title" style="margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom:10px;">Topic Name</h2>
+
+            <div id="tests-container"></div>
+        </div>
+
+    </div>
+
+   <script type="module">
+        // 🛑 FIREBASE AUTH AND CONFIGURATION (Copied from math.html)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+            authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+            projectId: "ujjwal-test-69e8d",
+            storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+            messagingSenderId: "1079902323676",
+            appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.handleLogout = async () => { await signOut(auth); };
+
+        // 🛑 NAV BAR AND AUTH CHECK LOGIC
+        onAuthStateChanged(auth, (user) => {
+            const profileLink = document.getElementById('profile-link');
+            const logoutButton = document.getElementById('logout-button');
+            const loginButton = document.getElementById('login-button');
+
+            if (user) {
+                loginButton.style.display = 'none';
+                profileLink.style.display = 'inline-flex'; 
+                logoutButton.style.display = 'inline-flex'; 
+                profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+                profileLink.classList.remove('btn-primary-nav'); 
+            } else {
+                // Unauthenticated: Redirect to login page
+                window.location.href = 'login.html'; 
+            }
+        });
+
+        // --- DATA CONFIGURATION FOR REASONING & QUANT ---
+        
+        const topicsData = {
+            'series': {
+                title: "Number & Alphabet Series / Analogy",
+                tests: [
+                    { name: "Basic Series Test", time: "20 Mins", marks: "120", file: "tests/reasoning/series/test1.html", level: "Basic" },
+                    { name: "Advanced Series & Logic", time: "30 Mins", marks: "180", file: "tests/reasoning/series/test2.html", level: "Moderate" },
+                    { name: "Letter & Word Analogy", time: "20 Mins", marks: "120", file: "tests/reasoning/series/test3.html", level: "Basic" }
+                ]
+            },
+            'coding': {
+                title: "Coding-Decoding",
+                tests: [
+                    { name: "Letter/Number Coding Basics", time: "15 Mins", marks: "90", file: "tests/reasoning/coding/test1.html", level: "Basic" },
+                    { name: "Symbol/Conditional Coding", time: "25 Mins", marks: "150", file: "tests/reasoning/coding/test2.html", level: "Moderate" },
+                    { name: "Advanced Mixed Coding", time: "30 Mins", marks: "180", file: "tests/reasoning/coding/test3.html", level: "Advanced" }
+                ]
+            },
+            'blood': {
+                title: "Blood Relations",
+                tests: [
+                    { name: "Basic Relations Puzzles", time: "20 Mins", marks: "120", file: "tests/reasoning/blood/test1.html", level: "Basic" },
+                    { name: "Pointing & Dialogue Problems", time: "25 Mins", marks: "150", file: "tests/reasoning/blood/test2.html", level: "Moderate" },
+                    { name: "Coded Blood Relations", time: "30 Mins", marks: "180", file: "tests/reasoning/blood/test3.html", level: "Advanced" }
+                ]
+            },
+            'syllogism': {
+                title: "Syllogism & Logical Deduction",
+                tests: [
+                    { name: "Basic Syllogism (2 Statements)", time: "20 Mins", marks: "120", file: "tests/reasoning/syllogism/test1.html", level: "Basic" },
+                    { name: "Advanced Syllogism (3+ Statements)", time: "30 Mins", marks: "180", file: "tests/reasoning/syllogism/test2.html", level: "Moderate" },
+                    { name: "Statement & Assumption", time: "25 Mins", marks: "150", file: "tests/reasoning/syllogism/test3.html", level: "Moderate" }
+                ]
+            },
+            'puzzles': {
+                 title: "Seating Arrangements & Complex Puzzles",
+                 tests: [
+                     { name: "Linear Arrangement", time: "30 Mins", marks: "180", file: "tests/reasoning/puzzles/test1.html", level: "Moderate" },
+                     { name: "Circular Arrangement", time: "30 Mins", marks: "180", file: "tests/reasoning/puzzles/test2.html", level: "Moderate" },
+                     { name: "Box/Floor Puzzles", time: "40 Mins", marks: "240", file: "tests/reasoning/puzzles/test3.html", level: "Advanced" },
+                     { name: "Complex Puzzles Mix", time: "40 Mins", marks: "240", file: "tests/reasoning/puzzles/test4.html", level: "Advanced" }
+                 ]
+             },
+             'direction': {
+                 title: "Direction Sense",
+                 tests: [
+                     { name: "Basic Direction Changes", time: "15 Mins", marks: "90", file: "tests/reasoning/direction/test1.html", level: "Basic" },
+                     { name: "Pythagorean Theorem Based", time: "20 Mins", marks: "120", file: "tests/reasoning/direction/test2.html", level: "Moderate" },
+                     { name: "Advanced Directions", time: "25 Mins", marks: "150", file: "tests/reasoning/direction/test3.html", level: "Moderate" }
+                 ]
+             },
+            
+            // --- QUANTITATIVE APTITUDE ---
+
+            'time_work': {
+                title: "Time & Work / Pipes and Cisterns",
+                tests: [
+                    // Ek file user ne already provide ki hai as a template, so use that path.
+                    { name: "Time & Work Basics", time: "30 Mins", marks: "180", file: "tests/reasoning/time_work/test1.html", level: "Basic" }, 
+                    { name: "Pipes & Cisterns", time: "25 Mins", marks: "150", file: "tests/reasoning/time_work/test2.html", level: "Moderate" },
+                    { name: "Work Wages & Efficiency", time: "35 Mins", marks: "210", file: "tests/reasoning/time_work/test3.html", level: "Advanced" },
+                    { name: "Advanced Mixed Problems", time: "35 Mins", marks: "210", file: "tests/reasoning/time_work/test4.html", level: "Advanced" }
+                ]
+            },
+            'speed_dist': {
+                title: "Speed, Time, Distance & Trains",
+                tests: [
+                    { name: "Basic Speed & Distance", time: "20 Mins", marks: "120", file: "tests/reasoning/speed_dist/test1.html", level: "Basic" },
+                    { name: "Trains & Relative Speed", time: "30 Mins", marks: "180", file: "tests/reasoning/speed_dist/test2.html", level: "Moderate" },
+                    { name: "Boats & Streams / Advanced", time: "35 Mins", marks: "210", file: "tests/reasoning/speed_dist/test3.html", level: "Advanced" }
+                ]
+            },
+            'avg': {
+                title: "Averages, Ratio & Mixtures",
+                tests: [
+                    { name: "Averages Basics", time: "20 Mins", marks: "120", file: "tests/reasoning/avg/test1.html", level: "Basic" },
+                    { name: "Ratio, Proportion & Age", time: "25 Mins", marks: "150", file: "tests/reasoning/avg/test2.html", level: "Moderate" },
+                    { name: "Mixtures & Alligation", time: "30 Mins", marks: "180", file: "tests/reasoning/avg/test3.html", level: "Advanced" }
+                ]
+            },
+            'profit': {
+                title: "Profit & Loss / Simple & Compound Interest",
+                tests: [
+                    { name: "Profit & Loss Basics", time: "20 Mins", marks: "120", file: "tests/reasoning/profit/test1.html", level: "Basic" },
+                    { name: "Simple & Compound Interest", time: "30 Mins", marks: "180", file: "tests/reasoning/profit/test2.html", level: "Moderate" },
+                    { name: "Advanced Discount & CI/SI Mix", time: "35 Mins", marks: "210", file: "tests/reasoning/profit/test3.html", level: "Advanced" }
+                ]
+            },
+            'numbers': {
+                title: "Number System",
+                tests: [
+                    { name: "Divisibility & Unit Digits", time: "20 Mins", marks: "120", file: "tests/reasoning/numbers/test1.html", level: "Basic" },
+                    { name: "LCM, HCF & Remainders", time: "30 Mins", marks: "180", file: "tests/reasoning/numbers/test2.html", level: "Moderate" },
+                    { name: "Properties & Factorization", time: "35 Mins", marks: "210", file: "tests/reasoning/numbers/test3.html", level: "Advanced" }
+                ]
+            },
+            'pnc_prob': { 
+                title: "Permutation & Combination / Probability",
+                tests: [
+                    { name: "Basic Counting & P&C", time: "30 Mins", marks: "180", file: "tests/reasoning/pnc_prob/test1.html", level: "Moderate" },
+                    { name: "Conditional Probability", time: "35 Mins", marks: "210", file: "tests/reasoning/pnc_prob/test2.html", level: "Moderate" },
+                    { name: "Advanced Combinations", time: "40 Mins", marks: "240", file: "tests/reasoning/pnc_prob/test3.html", level: "Advanced" },
+                    { name: "Probability Mix", time: "35 Mins", marks: "210", file: "tests/reasoning/pnc_prob/test4.html", level: "Advanced" }
+                ]
+            }
+        };
+
+        // --- FUNCTION LOGIC (Same as math.html) ---
+        function loadTests(topicId) {
+            
+            // 1. Hide Grid, Show List
+            document.getElementById('topic-view').style.display = 'none';
+            document.getElementById('test-view').style.display = 'block';
+
+            // 2. Get Data for the clicked topic
+            const data = topicsData[topicId];
+            
+            // 3. Update Title
+            document.getElementById('selected-topic-title').innerText = data.title;
+
+            // 4. Generate Test List HTML
+            const container = document.getElementById('tests-container');
+            container.innerHTML = ''; // Clear previous
+
+            data.tests.forEach(test => {
+                // Determine color based on level
+                let badgeColor = '#2ecc71'; // Green (Basic)
+                if(test.level === 'Moderate') badgeColor = '#f39c12'; // Orange
+                if(test.level === 'Advanced') badgeColor = '#e74c3c'; // Red
+
+                const html = `
+                <div class="test-item">
+                    <div class="test-info">
+                        <h4 style="display:flex; align-items:center; gap:10px;">
+                            ${test.name}
+                            <span style="background:${badgeColor}; color:white; font-size:0.7rem; padding:2px 8px; border-radius:4px;">${test.level}</span>
+                        </h4>
+                        <div class="test-meta">
+                            <span><i class="far fa-clock"></i> ${test.time}</span>
+                            <span style="margin-left: 15px;"><i class="far fa-check-circle"></i> ${test.marks} Marks</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="${test.file}" class="btn-sm" style="background:var(--primary); color:white; border:none; text-decoration:none;">Attempt Now</a>
+                    </div>
+                </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function goBack() {
+            document.getElementById('test-view').style.display = 'none';
+            document.getElementById('topic-view').style.display = 'block';
+        }
+        
+        window.loadTests = loadTests;
+        window.goBack = goBack;
+    </script>
+
+</body>
+</html>

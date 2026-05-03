@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Leaderboard</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* LAYOUT FIX: Container ko responsive aur centered rakha gaya hai */
+        .container { 
+            max-width: 1000px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .leaderboard-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        .leaderboard-table tr:nth-child(even) { background: #f9f9f9; }
+        .rank-badge {
+            display: inline-block;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            color: white;
+            background: #2ecc71;
+        }
+        .rank-badge-1 { background: gold; color: #333; }
+        .rank-badge-2 { background: silver; color: #333; }
+        .rank-badge-3 { background: #cd7f32; }
+        
+        /* NEW: Test List Styling */
+        .test-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .test-list-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .test-list-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-list-item h4 {
+            margin: 0;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .test-list-item span {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .back-btn-leaderboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .back-btn-leaderboard:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links" id="main-nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="text-align: center; color: var(--dark);">Test Performance Center</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;" id="sub-title">Select a test to view its specific ranks.</p>
+
+        <div id="test-list-view">
+            <h3 style="margin-bottom: 20px;"><i class="fas fa-clipboard-list" style="margin-right: 10px;"></i>Tests You Have Attempted</h3>
+            <div class="test-card-list" id="attempted-tests-container">
+                <p style="text-align: center; padding: 20px;">Loading tests list...</p>
+            </div>
+        </div>
+
+        <div id="rank-table-view" style="display: none;">
+            <div onclick="window.showTestList()" class="back-btn-leaderboard"><i class="fas fa-arrow-left"></i> Back to Test List</div>
+
+            <h3 id="leaderboard-title" style="margin-bottom: 20px;"><i class="fas fa-medal"></i> Rank for Selected Test</h3>
+
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Test</th>
+                        <th>Score</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr><td colspan="5" style="text-align: center;">Loading rank data...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script type="module">
+    // 🛑 1. FIREBASE INITIALIZATION AUR CONFIG
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // AAPKI FIREBASE CONFIGURATION
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+        authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+        projectId: "ujjwal-test-69e8d",
+        storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+        messagingSenderId: "1079902323676",
+        appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    window.handleLogout = async () => { await signOut(auth); };
+
+    // --- UI HELPERS ---
+    window.showTestList = function() {
+        document.getElementById('rank-table-view').style.display = 'none';
+        document.getElementById('test-list-view').style.display = 'block';
+        document.getElementById('sub-title').innerText = 'Select a test to view its specific ranks.';
+    }
+
+    window.showRankTable = function(testName) {
+        document.getElementById('test-list-view').style.display = 'none';
+        document.getElementById('rank-table-view').style.display = 'block';
+        document.getElementById('sub-title').innerText = 'Performance for all users who attempted this test.';
+        loadTestRanks(testName);
+    }
+    
+    // 🛑 2. STEP 1: UNIQUE TEST NAMES FETCH KARNA
+    async function loadAttemptedTests() {
+        const container = document.getElementById('attempted-tests-container');
+        container.innerHTML = '<p style="text-align: center; padding: 20px;">Fetching test history...</p>';
+
+        try {
+            // Firestore mein sabhi results ko fetch karein
+            const q = query(collection(db, "test_results"), orderBy("timestamp", "desc"));
+            
+            const querySnapshot = await getDocs(q);
+            // Unique test names store karne ke liye Map ka use karein
+            const uniqueTests = new Map();
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                if (!uniqueTests.has(data.testName)) {
+                    uniqueTests.set(data.testName, { 
+                        name: data.testName, 
+                        subject: data.subject || 'General' 
+                    });
+                }
+            });
+            
+            if (uniqueTests.size === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 20px; color: #e74c3c;">Aapne abhi tak koi test attempt nahi kiya hai.</p>';
+                return;
+            }
+
+            let html = '';
+            uniqueTests.forEach(test => {
+                // Click par rank table dikhayega
+                html += `
+                <div class="test-list-item" onclick="window.showRankTable('${test.name.replace(/'/g, "\\'")}')">
+                    <div>
+                        <h4><i class="fas fa-file-alt" style="margin-right: 10px;"></i> ${test.name}</h4>
+                        <span>Subject: ${test.subject}</span>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--primary);"></i>
+                </div>
+                `;
+            });
+            container.innerHTML = html;
+
+        } catch (e) {
+            console.error("Error loading test list: ", e);
+            container.innerHTML = `<p style="text-align: center; padding: 20px; color: red;">Error fetching test list: ${e.message}</p>`;
+        }
+    }
+    
+    // 🛑 3. STEP 2: SPECIFIC TEST KA RANK TABLE LOAD KARNA
+    async function loadTestRanks(testName) {
+        const leaderboardBody = document.getElementById('leaderboard-body');
+        const leaderboardTitle = document.getElementById('leaderboard-title');
+        
+        leaderboardTitle.innerHTML = `<i class="fas fa-medal"></i> Top Ranks for: <strong>${testName}</strong>`;
+        leaderboardBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Fetching top scores...</td></tr>';
+        
+        try {
+            // Query: Specific test name par filter karo, score ke hisaab se sort karo
+            const q = query(
+                collection(db, "test_results"), 
+                where("testName", "==", testName),
+                orderBy("score", "desc")
+            );
+            
+            const querySnapshot = await getDocs(q);
+            let html = '';
+            let rank = 1;
+            
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                let badgeClass = '';
+                if (rank === 1) badgeClass = 'rank-badge-1';
+                else if (rank === 2) badgeClass = 'rank-badge-2';
+                else if (rank === 3) badgeClass = 'rank-badge-3';
+
+                html += `
+                <tr>
+                    <td><span class="rank-badge ${badgeClass}">${rank}</span></td>
+                    <td>${data.userName}</td>
+                    <td>${data.testName}</td>
+                    <td>${data.score} / ${data.maxMarks}</td>
+                    <td>${data.percentage}%</td>
+                </tr>
+                `;
+                rank++;
+            });
+
+            leaderboardBody.innerHTML = html.length > 0 ? html : '<tr><td colspan="5" style="text-align: center; color: #e67e22;">Abhi tak kisi ne yeh test attempt nahi kiya hai.</td></tr>';
+
+        } catch (e) {
+            console.error("Error loading specific leaderboard: ", e);
+            leaderboardBody.innerHTML = `<tr><td colspan="5" style="color:red; text-align: center;">Error: ${e.message}</td></tr>`;
+        }
+    }
+
+    // --- NAV LOGIC AND INITIALIZATION ---
+    function updateNav(user) {
+        const profileLink = document.getElementById('profile-link');
+        const logoutButton = document.getElementById('logout-button');
+        const loginButton = document.getElementById('login-button');
+
+        if (user) {
+            loginButton.style.display = 'none';
+            profileLink.style.display = 'inline-flex';
+            logoutButton.style.display = 'inline-flex';
+            profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+            profileLink.classList.remove('btn-primary-nav'); 
+            loadAttemptedTests(); // Logged in hone par list load karein
+        } else {
+            // Unauthenticated: Redirect to login page
+            window.location.href = 'login.html'; 
+        }
+    }
+
+    onAuthStateChanged(auth, updateNav);
+</script>
+    
+</body>
+</html>

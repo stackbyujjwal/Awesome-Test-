@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics Topics - Ujjwal Academy</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PROFESSIONAL NAVIGATION BAR -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Awesome test</a>
+        <div class="nav-links" id="main-nav-links">
+            <a href="subjects.html"><i class="fas fa-book"></i> Subjects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a> 
+        </div>
+        <div class="header-controls" id="auth-controls">
+            <a href="profile.html" class="btn-nav" id="profile-link" style="display:none; margin-right: 10px;">
+                <i class="fas fa-user-circle"></i> Profile
+            </a>
+            <button class="btn-nav" onclick="window.handleLogout()" id="logout-button" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <a href="login.html" class="btn-primary-nav" id="login-button"><i class="fas fa-sign-in-alt"></i> Login / Start Test</a> 
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="topic-view">
+            <h2 style="text-align: center; margin-bottom: 10px;">Mathematics Topics</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Select a topic to attempt specific tests</p>
+
+            <div class="grid">
+                <div class="card" onclick="loadTests('sets')">
+                    <i class="fas fa-layer-group" style="font-size: 2rem; color: #3498db; margin-bottom: 15px;"></i>
+                    <h3>Set Theory</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('trigo')">
+                    <i class="fas fa-wave-square" style="font-size: 2rem; color: #e74c3c; margin-bottom: 15px;"></i>
+                    <h3>Trigonometry</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('calculus')">
+                    <i class="fas fa-infinity" style="font-size: 2rem; color: #9b59b6; margin-bottom: 15px;"></i>
+                    <h3>Calculus</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('probability')">
+                    <i class="fas fa-dice" style="font-size: 2rem; color: #f1c40f; margin-bottom: 15px;"></i>
+                    <h3>Probability</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('algebra')">
+                    <i class="fas fa-superscript" style="font-size: 2rem; color: #e67e22; margin-bottom: 15px;"></i>
+                    <h3>Algebra</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('matrices')">
+                    <i class="fas fa-th" style="font-size: 2rem; color: #34495e; margin-bottom: 15px;"></i>
+                    <h3>Matrices & Det.</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('coord')">
+                    <i class="fas fa-chart-line" style="font-size: 2rem; color: #c0392b; margin-bottom: 15px;"></i>
+                    <h3>Coordinate Geometry</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('stats')">
+                    <i class="fas fa-chart-bar" style="font-size: 2rem; color: #16a085; margin-bottom: 15px;"></i>
+                    <h3>Statistics</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+
+                <div class="card" onclick="loadTests('progression')">
+                    <i class="fas fa-sort-numeric-down" style="font-size: 2rem; color: #2980b9; margin-bottom: 15px;"></i>
+                    <h3>Progression (AP/GP)</h3>
+                    <p>3 Tests Available</p>
+                    <button class="btn-sm">Open</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="test-view" class="test-list-container">
+            <div onclick="goBack()" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Topics</div>
+            
+            <h2 id="selected-topic-title" style="margin-bottom: 20px; color: var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom:10px;">Topic Name</h2>
+
+            <div id="tests-container"></div>
+        </div>
+
+    </div>
+
+   <script type="module">
+        // 🛑 FIREBASE AUTH AND CONFIGURATION
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdSJleHGBOOCGv14n1gKgm-JfyAR5rKDM",
+            authDomain: "ujjwal-test-69e8d.firebaseapp.com",
+            projectId: "ujjwal-test-69e8d",
+            storageBucket: "ujjwal-test-69e8d.firebasestorage.app",
+            messagingSenderId: "1079902323676",
+            appId: "1:1079902323676:web:c967fed7a9ade8f2b78519"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.handleLogout = async () => { await signOut(auth); };
+
+        // 🛑 NAV BAR AND AUTH CHECK LOGIC
+        onAuthStateChanged(auth, (user) => {
+            const profileLink = document.getElementById('profile-link');
+            const logoutButton = document.getElementById('logout-button');
+            const loginButton = document.getElementById('login-button');
+
+            if (user) {
+                loginButton.style.display = 'none';
+                profileLink.style.display = 'inline-flex'; 
+                logoutButton.style.display = 'inline-flex'; 
+                profileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${user.displayName || user.email}`;
+                profileLink.classList.remove('btn-primary-nav'); 
+            } else {
+                window.location.href = 'login.html'; 
+            }
+        });
+
+        // --- DATA CONFIGURATION ---
+        
+        const topicsData = {
+            'sets': {
+                title: "Set Theory",
+                tests: [
+                    { name: "Basic Concepts & Types", time: "40 Mins", marks: "360", file: "tests/math/sets/test1.html", level: "Basic" },
+                    { name: "More Then Basic", time: "40 Mins", marks: "360", file: "tests/Math/sets/test2.html", level: "Moderate" },
+                    { name: "Advanced Problems", time: "50 Mins", marks: "420", file: "tests/Math/sets/test3.html", level: "Advanced" }
+                ]
+            },
+            'trigo': {
+                title: "Trigonometry",
+                tests: [
+                    { name: "Trigo Ratios & Identities", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                    { name: "Inverse Trigonometry", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                    { name: "Properties of Triangles", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                ]
+            },
+            'calculus': {
+                 title: "Differential & Integral Calculus",
+                 tests: [
+                     { name: "Limits & Continuity", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Differentiation Rules", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Definite Integration", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'probability': {
+                 title: "Probability",
+                 tests: [
+                     { name: "Coin & Dice Problems", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Conditional Probability", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Bayes Theorem", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'algebra': {
+                 title: "Algebra",
+                 tests: [
+                     { name: "Quadratic Equations", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Logarithms", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Inequalities", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'matrices': {
+                 title: "Matrices & Determinants",
+                 tests: [
+                     { name: "Matrix Operations", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Properties of Determinants", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "System of Equations", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'coord': {
+                 title: "Coordinate Geometry",
+                 tests: [
+                     { name: "Straight Lines", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Circles", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Conic Sections (Parabola/Ellipse)", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'stats': {
+                 title: "Statistics",
+                 tests: [
+                     { name: "Mean, Median, Mode", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Standard Deviation", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Variance Analysis", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'progression': {
+                 title: "Progressions",
+                 tests: [
+                     { name: "AP & GP Basics", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                     { name: "Sum of Series", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                     { name: "Special Series", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                 ]
+             },
+             'pnc': { 
+                  title: "Permutation & Comb.",
+                  tests: [
+                      { name: "Basic Counting", time: "30 Mins", marks: "40", file: "exam.html", level: "Basic" },
+                      { name: "Arrangements", time: "45 Mins", marks: "60", file: "exam.html", level: "Moderate" },
+                      { name: "Selections", time: "60 Mins", marks: "100", file: "exam.html", level: "Advanced" }
+                  ]
+              }
+        };
+
+        // --- FUNCTION LOGIC (REMOVED Rank button) ---
+        function loadTests(topicId) {
+            
+            // 1. Hide Grid, Show List
+            document.getElementById('topic-view').style.display = 'none';
+            document.getElementById('test-view').style.display = 'block';
+
+            // 2. Get Data for the clicked topic
+            const data = topicsData[topicId];
+            
+            // 3. Update Title
+            document.getElementById('selected-topic-title').innerText = data.title;
+
+            // 4. Generate Test List HTML
+            const container = document.getElementById('tests-container');
+            container.innerHTML = ''; // Clear previous
+
+            data.tests.forEach(test => {
+                // Determine color based on level
+                let badgeColor = '#2ecc71'; // Green (Basic)
+                if(test.level === 'Moderate') badgeColor = '#f39c12'; // Orange
+                if(test.level === 'Advanced') badgeColor = '#e74c3c'; // Red
+
+                const html = `
+                <div class="test-item">
+                    <div class="test-info">
+                        <h4 style="display:flex; align-items:center; gap:10px;">
+                            ${test.name}
+                            <span style="background:${badgeColor}; color:white; font-size:0.7rem; padding:2px 8px; border-radius:4px;">${test.level}</span>
+                        </h4>
+                        <div class="test-meta">
+                            <span><i class="far fa-clock"></i> ${test.time}</span>
+                            <span style="margin-left: 15px;"><i class="far fa-check-circle"></i> ${test.marks} Marks</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="${test.file}" class="btn-sm" style="background:var(--primary); color:white; border:none; text-decoration:none;">Attempt Now</a>
+                    </div>
+                </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function goBack() {
+            document.getElementById('test-view').style.display = 'none';
+            document.getElementById('topic-view').style.display = 'block';
+        }
+        
+        window.loadTests = loadTests;
+        window.goBack = goBack;
+    </script>
+
+</body>
+</html>
